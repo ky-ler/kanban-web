@@ -1,54 +1,60 @@
-# React + TypeScript + Vite
+# Kanban Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the Kanban project management application, built with React, Vite, and TypeScript. It provides a user-friendly interface for managing projects, collaborating with team members, and tracking tasks. Please note that this project is currently under development.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* **React 19**
+* **Vite**
+* **TypeScript**
+* **TanStack Router**
+* **React Query**
+* **Tailwind CSS**
+* **Shadcn**
+* **Keycloak**
 
-## Expanding the ESLint configuration
+## Key Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* **Project Management:** Create, view, and manage your Kanban projects.
+* **Collaborator Support:** Add and manage collaborators on your projects.
+* **Issue Tracking:** Create, update, and track issues within each project.
+* **User-Friendly Interface:** A clean and intuitive interface for managing your workflow.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Getting Started
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+To get a local copy up and running, follow these simple steps.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+* **Node.js (v18 or later)**
+* **npm or yarn**
+* **Running Backend Services:** This frontend application requires the `kanban-backend`, Keycloak, and PostgreSQL services to be running. Please follow the setup instructions in the [kanban-backend repository's README.md](https://github.com/ky-ler/kanban-backend/blob/main/README.md) to get these services up and running using Docker Compose before proceeding.
+
+### Installation & Setup
+
+1.  **Clone the repository:**
+    ```sh
+    git clone [https://github.com/ky-ler/kanban-web.git](https://github.com/ky-ler/kanban-web.git)
+    ```
+2.  **Navigate to the project directory:**
+    ```sh
+    cd kanban-web
+    ```
+3.  **Install dependencies:**
+    ```sh
+    npm install
+    ```
+4.  **Set up environment variables:**
+    * Create a `.env` file in the root of the project by copying the `.env.example` file.
+    * Ensure the values in your `.env` file match the configuration of your running backend services:
+        ```
+        VITE_KEYCLOAK_URL=http://localhost:9090
+        VITE_KEYCLOAK_REALM=kanban
+        VITE_KEYCLOAK_CLIENT=kanban-app
+        VITE_API_URL=http://localhost:8080/api
+        ```
+5.  **Run the application:**
+    ```sh
+    npm run dev
+    ```
+    The application will be available at `http://localhost:5173`.
