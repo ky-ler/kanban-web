@@ -1,8 +1,9 @@
 import { queryOptions } from "@tanstack/react-query";
-import { fetchIssue } from "./issues";
+import { fetchSingleIssue } from "./issues";
+import { issueQueryKey } from "@/lib/query/query";
 
 export const issueQueryOptions = (projectId: string, issueId: string) =>
   queryOptions({
-    queryKey: ["issue", projectId, issueId], // TODO: check if this works better than ["issue", { projectId, issueId }]
-    queryFn: () => fetchIssue(projectId, issueId),
+    queryKey: issueQueryKey(projectId, issueId),
+    queryFn: () => fetchSingleIssue(projectId, issueId),
   });
