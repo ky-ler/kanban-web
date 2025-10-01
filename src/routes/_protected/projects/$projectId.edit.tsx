@@ -1,8 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { projectQueryOptions } from "@/api/projects/projectQueryOptions";
-// import type { Project } from "@/types/Project";
+import { updateProject } from "@/api/projects/projects";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
-import { api } from "@/api/api";
 import type { ProjectForm } from "@/types/ProjectForms";
 import { queryClient } from "@/lib/query";
 import { useAppForm } from "@/components/ui/tanstack-form";
@@ -19,6 +18,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { router } from "@/lib/router";
+import { projectQueryKey } from "@/lib/query";
 
 export const Route = createFileRoute("/_protected/projects/$projectId/edit")({
   loader: ({ context: { queryClient }, params: { projectId } }) =>
@@ -37,13 +37,14 @@ function EditProjectComponent() {
       projectDescription: string;
     }) => {
       const updateProjectData: ProjectForm = {
+        projectId: parseInt(projectId),
         name: value.projectName,
         description: value.projectDescription ?? "",
       };
-      await api.put(`/projects/${projectId}`, updateProjectData);
+      return await updateProject(updateProjectData);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["projects", { projectId }] });
+      queryClient.invalidateQueries({ queryKey: projectQueryKey(projectId) });
       returnToProject();
     },
   });
@@ -56,7 +57,7 @@ function EditProjectComponent() {
     onSubmit: async ({ formApi, value }) => {
       await saveUserMutation.mutateAsync(value);
       await queryClient.invalidateQueries({
-        queryKey: ["projects", { projectId }],
+        queryKey: projectQueryKey(projectId),
       });
 
       formApi.reset();
