@@ -12,3 +12,12 @@ export interface Project {
   dateCreated: string;
   dateModified: string;
 }
+
+export interface ProjectSummary {
+  id: number;
+  name: string;
+  description: string | undefined;
+  dateModified: string;
+  totalIssues: number;
+  doneIssues: number;
+}
