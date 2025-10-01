@@ -26,6 +26,7 @@ export const Route = createFileRoute("/_protected/projects/$projectId/edit")({
   component: EditProjectComponent,
 });
 
+// TODO: Refactor to use Tanstack form and zod like CreateProjectFormDialog
 function EditProjectComponent() {
   // const project: Project = Route.useLoaderData();
   const projectId = Route.useParams().projectId;
