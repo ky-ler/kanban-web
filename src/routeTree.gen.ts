@@ -11,23 +11,17 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as AboutImport } from './routes/about'
 import { Route as ProtectedRouteImport } from './routes/_protected/route'
 import { Route as IndexImport } from './routes/index'
+import { Route as ProtectedSettingsImport } from './routes/_protected/settings'
 import { Route as ProtectedProjectsIndexImport } from './routes/_protected/projects/index'
 import { Route as ProtectedProjectsProjectIdImport } from './routes/_protected/projects/$projectId'
 import { Route as ProtectedProjectsProjectIdEditImport } from './routes/_protected/projects/$projectId.edit'
+import { Route as ProtectedProjectsProjectIdCollaboratorsImport } from './routes/_protected/projects/$projectId.collaborators'
 import { Route as ProtectedProjectsProjectIdIssueCreateImport } from './routes/_protected/projects/$projectId.issue.create'
-import { Route as ProtectedProjectsProjectIdIssueIssueIdImport } from './routes/_protected/projects/_.$projectId/issue/$issueId'
-import { Route as ProtectedProjectsProjectIdIssueIssueIdEditImport } from './routes/_protected/projects/_.$projectId/issue/_.$issueId.edit'
+import { Route as ProtectedProjectsProjectIdIssueIssueIdImport } from './routes/_protected/projects/$projectId.issue.$issueId'
 
 // Create/Update Routes
-
-const AboutRoute = AboutImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const ProtectedRouteRoute = ProtectedRouteImport.update({
   id: '/_protected',
@@ -38,6 +32,12 @@ const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const ProtectedSettingsRoute = ProtectedSettingsImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => ProtectedRouteRoute,
 } as any)
 
 const ProtectedProjectsIndexRoute = ProtectedProjectsIndexImport.update({
@@ -61,6 +61,13 @@ const ProtectedProjectsProjectIdEditRoute =
     getParentRoute: () => ProtectedProjectsProjectIdRoute,
   } as any)
 
+const ProtectedProjectsProjectIdCollaboratorsRoute =
+  ProtectedProjectsProjectIdCollaboratorsImport.update({
+    id: '/collaborators',
+    path: '/collaborators',
+    getParentRoute: () => ProtectedProjectsProjectIdRoute,
+  } as any)
+
 const ProtectedProjectsProjectIdIssueCreateRoute =
   ProtectedProjectsProjectIdIssueCreateImport.update({
     id: '/issue/create',
@@ -70,16 +77,9 @@ const ProtectedProjectsProjectIdIssueCreateRoute =
 
 const ProtectedProjectsProjectIdIssueIssueIdRoute =
   ProtectedProjectsProjectIdIssueIssueIdImport.update({
-    id: '/projects/_/$projectId/issue/$issueId',
-    path: '/projects/$projectId/issue/$issueId',
-    getParentRoute: () => ProtectedRouteRoute,
-  } as any)
-
-const ProtectedProjectsProjectIdIssueIssueIdEditRoute =
-  ProtectedProjectsProjectIdIssueIssueIdEditImport.update({
-    id: '/projects/_/$projectId/issue/_/$issueId/edit',
-    path: '/projects/$projectId/issue/$issueId/edit',
-    getParentRoute: () => ProtectedRouteRoute,
+    id: '/issue/$issueId',
+    path: '/issue/$issueId',
+    getParentRoute: () => ProtectedProjectsProjectIdRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -100,12 +100,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedRouteImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
-      parentRoute: typeof rootRoute
+    '/_protected/settings': {
+      id: '/_protected/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof ProtectedSettingsImport
+      parentRoute: typeof ProtectedRouteImport
     }
     '/_protected/projects/$projectId': {
       id: '/_protected/projects/$projectId'
@@ -121,11 +121,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedProjectsIndexImport
       parentRoute: typeof ProtectedRouteImport
     }
+    '/_protected/projects/$projectId/collaborators': {
+      id: '/_protected/projects/$projectId/collaborators'
+      path: '/collaborators'
+      fullPath: '/projects/$projectId/collaborators'
+      preLoaderRoute: typeof ProtectedProjectsProjectIdCollaboratorsImport
+      parentRoute: typeof ProtectedProjectsProjectIdImport
+    }
     '/_protected/projects/$projectId/edit': {
       id: '/_protected/projects/$projectId/edit'
       path: '/edit'
       fullPath: '/projects/$projectId/edit'
       preLoaderRoute: typeof ProtectedProjectsProjectIdEditImport
+      parentRoute: typeof ProtectedProjectsProjectIdImport
+    }
+    '/_protected/projects/$projectId/issue/$issueId': {
+      id: '/_protected/projects/$projectId/issue/$issueId'
+      path: '/issue/$issueId'
+      fullPath: '/projects/$projectId/issue/$issueId'
+      preLoaderRoute: typeof ProtectedProjectsProjectIdIssueIssueIdImport
       parentRoute: typeof ProtectedProjectsProjectIdImport
     }
     '/_protected/projects/$projectId/issue/create': {
@@ -135,33 +149,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedProjectsProjectIdIssueCreateImport
       parentRoute: typeof ProtectedProjectsProjectIdImport
     }
-    '/_protected/projects/_/$projectId/issue/$issueId': {
-      id: '/_protected/projects/_/$projectId/issue/$issueId'
-      path: '/projects/$projectId/issue/$issueId'
-      fullPath: '/projects/$projectId/issue/$issueId'
-      preLoaderRoute: typeof ProtectedProjectsProjectIdIssueIssueIdImport
-      parentRoute: typeof ProtectedRouteImport
-    }
-    '/_protected/projects/_/$projectId/issue/_/$issueId/edit': {
-      id: '/_protected/projects/_/$projectId/issue/_/$issueId/edit'
-      path: '/projects/$projectId/issue/$issueId/edit'
-      fullPath: '/projects/$projectId/issue/$issueId/edit'
-      preLoaderRoute: typeof ProtectedProjectsProjectIdIssueIssueIdEditImport
-      parentRoute: typeof ProtectedRouteImport
-    }
   }
 }
 
 // Create and export the route tree
 
 interface ProtectedProjectsProjectIdRouteChildren {
+  ProtectedProjectsProjectIdCollaboratorsRoute: typeof ProtectedProjectsProjectIdCollaboratorsRoute
   ProtectedProjectsProjectIdEditRoute: typeof ProtectedProjectsProjectIdEditRoute
+  ProtectedProjectsProjectIdIssueIssueIdRoute: typeof ProtectedProjectsProjectIdIssueIssueIdRoute
   ProtectedProjectsProjectIdIssueCreateRoute: typeof ProtectedProjectsProjectIdIssueCreateRoute
 }
 
 const ProtectedProjectsProjectIdRouteChildren: ProtectedProjectsProjectIdRouteChildren =
   {
+    ProtectedProjectsProjectIdCollaboratorsRoute:
+      ProtectedProjectsProjectIdCollaboratorsRoute,
     ProtectedProjectsProjectIdEditRoute: ProtectedProjectsProjectIdEditRoute,
+    ProtectedProjectsProjectIdIssueIssueIdRoute:
+      ProtectedProjectsProjectIdIssueIssueIdRoute,
     ProtectedProjectsProjectIdIssueCreateRoute:
       ProtectedProjectsProjectIdIssueCreateRoute,
   }
@@ -172,19 +178,15 @@ const ProtectedProjectsProjectIdRouteWithChildren =
   )
 
 interface ProtectedRouteRouteChildren {
+  ProtectedSettingsRoute: typeof ProtectedSettingsRoute
   ProtectedProjectsProjectIdRoute: typeof ProtectedProjectsProjectIdRouteWithChildren
   ProtectedProjectsIndexRoute: typeof ProtectedProjectsIndexRoute
-  ProtectedProjectsProjectIdIssueIssueIdRoute: typeof ProtectedProjectsProjectIdIssueIssueIdRoute
-  ProtectedProjectsProjectIdIssueIssueIdEditRoute: typeof ProtectedProjectsProjectIdIssueIssueIdEditRoute
 }
 
 const ProtectedRouteRouteChildren: ProtectedRouteRouteChildren = {
+  ProtectedSettingsRoute: ProtectedSettingsRoute,
   ProtectedProjectsProjectIdRoute: ProtectedProjectsProjectIdRouteWithChildren,
   ProtectedProjectsIndexRoute: ProtectedProjectsIndexRoute,
-  ProtectedProjectsProjectIdIssueIssueIdRoute:
-    ProtectedProjectsProjectIdIssueIssueIdRoute,
-  ProtectedProjectsProjectIdIssueIssueIdEditRoute:
-    ProtectedProjectsProjectIdIssueIssueIdEditRoute,
 }
 
 const ProtectedRouteRouteWithChildren = ProtectedRouteRoute._addFileChildren(
@@ -194,38 +196,38 @@ const ProtectedRouteRouteWithChildren = ProtectedRouteRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof ProtectedRouteRouteWithChildren
-  '/about': typeof AboutRoute
+  '/settings': typeof ProtectedSettingsRoute
   '/projects/$projectId': typeof ProtectedProjectsProjectIdRouteWithChildren
   '/projects': typeof ProtectedProjectsIndexRoute
+  '/projects/$projectId/collaborators': typeof ProtectedProjectsProjectIdCollaboratorsRoute
   '/projects/$projectId/edit': typeof ProtectedProjectsProjectIdEditRoute
-  '/projects/$projectId/issue/create': typeof ProtectedProjectsProjectIdIssueCreateRoute
   '/projects/$projectId/issue/$issueId': typeof ProtectedProjectsProjectIdIssueIssueIdRoute
-  '/projects/$projectId/issue/$issueId/edit': typeof ProtectedProjectsProjectIdIssueIssueIdEditRoute
+  '/projects/$projectId/issue/create': typeof ProtectedProjectsProjectIdIssueCreateRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof ProtectedRouteRouteWithChildren
-  '/about': typeof AboutRoute
+  '/settings': typeof ProtectedSettingsRoute
   '/projects/$projectId': typeof ProtectedProjectsProjectIdRouteWithChildren
   '/projects': typeof ProtectedProjectsIndexRoute
+  '/projects/$projectId/collaborators': typeof ProtectedProjectsProjectIdCollaboratorsRoute
   '/projects/$projectId/edit': typeof ProtectedProjectsProjectIdEditRoute
-  '/projects/$projectId/issue/create': typeof ProtectedProjectsProjectIdIssueCreateRoute
   '/projects/$projectId/issue/$issueId': typeof ProtectedProjectsProjectIdIssueIssueIdRoute
-  '/projects/$projectId/issue/$issueId/edit': typeof ProtectedProjectsProjectIdIssueIssueIdEditRoute
+  '/projects/$projectId/issue/create': typeof ProtectedProjectsProjectIdIssueCreateRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_protected': typeof ProtectedRouteRouteWithChildren
-  '/about': typeof AboutRoute
+  '/_protected/settings': typeof ProtectedSettingsRoute
   '/_protected/projects/$projectId': typeof ProtectedProjectsProjectIdRouteWithChildren
   '/_protected/projects/': typeof ProtectedProjectsIndexRoute
+  '/_protected/projects/$projectId/collaborators': typeof ProtectedProjectsProjectIdCollaboratorsRoute
   '/_protected/projects/$projectId/edit': typeof ProtectedProjectsProjectIdEditRoute
+  '/_protected/projects/$projectId/issue/$issueId': typeof ProtectedProjectsProjectIdIssueIssueIdRoute
   '/_protected/projects/$projectId/issue/create': typeof ProtectedProjectsProjectIdIssueCreateRoute
-  '/_protected/projects/_/$projectId/issue/$issueId': typeof ProtectedProjectsProjectIdIssueIssueIdRoute
-  '/_protected/projects/_/$projectId/issue/_/$issueId/edit': typeof ProtectedProjectsProjectIdIssueIssueIdEditRoute
 }
 
 export interface FileRouteTypes {
@@ -233,48 +235,46 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | ''
-    | '/about'
+    | '/settings'
     | '/projects/$projectId'
     | '/projects'
+    | '/projects/$projectId/collaborators'
     | '/projects/$projectId/edit'
-    | '/projects/$projectId/issue/create'
     | '/projects/$projectId/issue/$issueId'
-    | '/projects/$projectId/issue/$issueId/edit'
+    | '/projects/$projectId/issue/create'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | ''
-    | '/about'
+    | '/settings'
     | '/projects/$projectId'
     | '/projects'
+    | '/projects/$projectId/collaborators'
     | '/projects/$projectId/edit'
-    | '/projects/$projectId/issue/create'
     | '/projects/$projectId/issue/$issueId'
-    | '/projects/$projectId/issue/$issueId/edit'
+    | '/projects/$projectId/issue/create'
   id:
     | '__root__'
     | '/'
     | '/_protected'
-    | '/about'
+    | '/_protected/settings'
     | '/_protected/projects/$projectId'
     | '/_protected/projects/'
+    | '/_protected/projects/$projectId/collaborators'
     | '/_protected/projects/$projectId/edit'
+    | '/_protected/projects/$projectId/issue/$issueId'
     | '/_protected/projects/$projectId/issue/create'
-    | '/_protected/projects/_/$projectId/issue/$issueId'
-    | '/_protected/projects/_/$projectId/issue/_/$issueId/edit'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ProtectedRouteRoute: typeof ProtectedRouteRouteWithChildren
-  AboutRoute: typeof AboutRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ProtectedRouteRoute: ProtectedRouteRouteWithChildren,
-  AboutRoute: AboutRoute,
 }
 
 export const routeTree = rootRoute
@@ -288,8 +288,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/_protected",
-        "/about"
+        "/_protected"
       ]
     },
     "/": {
@@ -298,20 +297,22 @@ export const routeTree = rootRoute
     "/_protected": {
       "filePath": "_protected/route.tsx",
       "children": [
+        "/_protected/settings",
         "/_protected/projects/$projectId",
-        "/_protected/projects/",
-        "/_protected/projects/_/$projectId/issue/$issueId",
-        "/_protected/projects/_/$projectId/issue/_/$issueId/edit"
+        "/_protected/projects/"
       ]
     },
-    "/about": {
-      "filePath": "about.tsx"
+    "/_protected/settings": {
+      "filePath": "_protected/settings.tsx",
+      "parent": "/_protected"
     },
     "/_protected/projects/$projectId": {
       "filePath": "_protected/projects/$projectId.tsx",
       "parent": "/_protected",
       "children": [
+        "/_protected/projects/$projectId/collaborators",
         "/_protected/projects/$projectId/edit",
+        "/_protected/projects/$projectId/issue/$issueId",
         "/_protected/projects/$projectId/issue/create"
       ]
     },
@@ -319,21 +320,21 @@ export const routeTree = rootRoute
       "filePath": "_protected/projects/index.tsx",
       "parent": "/_protected"
     },
+    "/_protected/projects/$projectId/collaborators": {
+      "filePath": "_protected/projects/$projectId.collaborators.tsx",
+      "parent": "/_protected/projects/$projectId"
+    },
     "/_protected/projects/$projectId/edit": {
       "filePath": "_protected/projects/$projectId.edit.tsx",
+      "parent": "/_protected/projects/$projectId"
+    },
+    "/_protected/projects/$projectId/issue/$issueId": {
+      "filePath": "_protected/projects/$projectId.issue.$issueId.tsx",
       "parent": "/_protected/projects/$projectId"
     },
     "/_protected/projects/$projectId/issue/create": {
       "filePath": "_protected/projects/$projectId.issue.create.tsx",
       "parent": "/_protected/projects/$projectId"
-    },
-    "/_protected/projects/_/$projectId/issue/$issueId": {
-      "filePath": "_protected/projects/_.$projectId/issue/$issueId.tsx",
-      "parent": "/_protected"
-    },
-    "/_protected/projects/_/$projectId/issue/_/$issueId/edit": {
-      "filePath": "_protected/projects/_.$projectId/issue/_.$issueId.edit.tsx",
-      "parent": "/_protected"
     }
   }
 }
