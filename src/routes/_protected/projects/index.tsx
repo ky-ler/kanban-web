@@ -42,7 +42,7 @@ function ProjectCard({ project }: { project: ProjectSummary }) {
       : 0;
 
   return (
-    <Card className="hover:shadow-md transition-shadow duration-200">
+    <Card className="transition-shadow duration-200 hover:shadow-md">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
@@ -79,7 +79,7 @@ function ProjectCard({ project }: { project: ProjectSummary }) {
               <span className="text-muted-foreground">Progress</span>
               <span className="font-medium">{progress}%</span>
             </div>
-            <div className="w-full bg-secondary rounded-full h-2">
+            <div className="bg-secondary h-2 w-full rounded-full">
               <div
                 className="bg-primary h-2 rounded-full transition-all duration-300"
                 style={{ width: `${progress}%` }}
@@ -88,17 +88,17 @@ function ProjectCard({ project }: { project: ProjectSummary }) {
           </div>
           {/* Stats */}
           <div className="flex justify-between text-sm">
-            <div className="flex items-center gap-1 text-muted-foreground">
+            <div className="text-muted-foreground flex items-center gap-1">
               <FolderKanban className="h-3 w-3" />
               <span>{project.totalIssues} tasks</span>
             </div>
-            <div className="flex items-center gap-1 text-muted-foreground">
+            <div className="text-muted-foreground flex items-center gap-1">
               <Users className="h-3 w-3" />
               <span>{project.doneIssues} done</span>
             </div>
           </div>
           {/* Last Activity */}
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+          <div className="text-muted-foreground flex items-center gap-1 text-xs">
             <Calendar className="h-3 w-3" />
             <span>
               Updated {new Date(project.dateModified).toLocaleDateString()}
@@ -126,9 +126,9 @@ function ProjectsComponent() {
 
   if (projectsQuery.isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
+      <div className="flex min-h-[400px] items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
+          <div className="border-primary mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-b-2"></div>
           <p className="text-muted-foreground">Loading projects...</p>
         </div>
       </div>
@@ -136,7 +136,7 @@ function ProjectsComponent() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6 space-y-6">
+    <div className="container mx-auto space-y-6 px-4 py-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -154,9 +154,9 @@ function ProjectsComponent() {
 
       {/* Projects Grid */}
       {projects.length === 0 ? (
-        <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
-          <FolderKanban className="h-16 w-16 text-muted-foreground mb-4" />
-          <h3 className="text-xl font-semibold mb-2">No projects yet</h3>
+        <div className="flex min-h-[400px] flex-col items-center justify-center text-center">
+          <FolderKanban className="text-muted-foreground mb-4 h-16 w-16" />
+          <h3 className="mb-2 text-xl font-semibold">No projects yet</h3>
           <p className="text-muted-foreground mb-6 max-w-md">
             Get started by creating your first project. You can invite team
             members and start organizing your work.
@@ -164,7 +164,7 @@ function ProjectsComponent() {
           <CreateProjectFormDialog />
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
@@ -175,13 +175,13 @@ function ProjectsComponent() {
       {projects.length > 0 && (
         <div className="mt-8">
           <Separator className="mb-6" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <Card>
               <CardContent className="p-6 text-center">
-                <div className="text-2xl font-bold text-primary">
+                <div className="text-primary text-2xl font-bold">
                   {projects.length}
                 </div>
-                <p className="text-sm text-muted-foreground">Total Projects</p>
+                <p className="text-muted-foreground text-sm">Total Projects</p>
               </CardContent>
             </Card>
             <Card>
@@ -189,7 +189,7 @@ function ProjectsComponent() {
                 <div className="text-2xl font-bold text-green-600">
                   {projects.reduce((acc, p) => acc + p.totalIssues, 0)}
                 </div>
-                <p className="text-sm text-muted-foreground">Total Tasks</p>
+                <p className="text-muted-foreground text-sm">Total Tasks</p>
               </CardContent>
             </Card>
             <Card>
@@ -197,7 +197,7 @@ function ProjectsComponent() {
                 <div className="text-2xl font-bold text-blue-600">
                   {projects.reduce((acc, p) => acc + p.doneIssues, 0)}
                 </div>
-                <p className="text-sm text-muted-foreground">Tasks Completed</p>
+                <p className="text-muted-foreground text-sm">Tasks Completed</p>
               </CardContent>
             </Card>
           </div>

@@ -22,7 +22,7 @@ function FieldInfo({ field }: { field: AnyFieldApi }) {
   return (
     <>
       {field.state.meta.isTouched && !field.state.meta.isValid ? (
-        <span className="text-xs text-destructive">
+        <span className="text-destructive text-xs">
           {field.state.meta.errors.map((err) => err.message).join(",")}
         </span>
       ) : null}

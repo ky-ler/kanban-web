@@ -29,7 +29,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useCallback } from "react";
 
 export const Route = createFileRoute(
-  "/_protected/projects/$projectId/issue/create"
+  "/_protected/projects/$projectId/issue/create",
 )({
   loader: ({ context: { queryClient }, params: { projectId } }) =>
     queryClient.ensureQueryData(projectQueryOptions(projectId)),
@@ -88,7 +88,7 @@ function CreateIssueComponent() {
       e.stopPropagation();
       form.handleSubmit();
     },
-    [form]
+    [form],
   );
 
   const returnToProject = () => {
@@ -116,7 +116,7 @@ function CreateIssueComponent() {
         </DialogHeader>
         <form.AppForm>
           <form onSubmit={handleSubmit}>
-            <div className="gap-4 flex flex-col">
+            <div className="flex flex-col gap-4">
               <form.AppField
                 name="issueTitle"
                 validators={{
@@ -283,7 +283,7 @@ function CreateIssueComponent() {
                     // check if value is the username of a collaborator
                     if (value) {
                       const collaborator = project?.collaborators.find(
-                        (collaborator) => collaborator.user.username === value
+                        (collaborator) => collaborator.user.username === value,
                       );
                       if (!collaborator) {
                         error = "Invalid assignee";

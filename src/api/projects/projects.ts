@@ -10,7 +10,7 @@ export const fetchProjects = async (): Promise<
 };
 
 export const fetchProject = async (
-  projectId: string
+  projectId: string,
 ): Promise<Project | undefined> => {
   console.info("Fetching info about project: " + projectId);
   return await apiClient.get<Project>(`projects/${projectId}`);
@@ -25,12 +25,12 @@ export const createProject = async (formData: {
 };
 
 export const updateProject = async (
-  projectForm: ProjectForm
+  projectForm: ProjectForm,
 ): Promise<Project | undefined> => {
   console.info("Updating project: " + projectForm.projectId);
   return await apiClient.put<Project>(
     `projects/${projectForm.projectId}`,
-    projectForm
+    projectForm,
   );
 };
 
@@ -41,11 +41,11 @@ export const deleteProject = async (projectId: string): Promise<void> => {
 
 export const removeCollaborator = async (
   projectId: string,
-  userId: string
+  userId: string,
 ): Promise<unknown> => {
   console.info(`Removing collaborator ${userId} from project ${projectId}`);
   return await apiClient.delete(
-    `projects/${projectId}/collaborators/${userId}`
+    `projects/${projectId}/collaborators/${userId}`,
   );
 };
 
@@ -53,10 +53,10 @@ export const removeCollaborator = async (
 export const addCollaborator = async (
   projectId: string,
   userId: string,
-  role: "ADMIN" | "MEMBER" | "GUEST"
+  role: "ADMIN" | "MEMBER" | "GUEST",
 ): Promise<void> => {
   console.info(
-    `Adding collaborator ${userId} to project ${projectId} with role ${role}`
+    `Adding collaborator ${userId} to project ${projectId} with role ${role}`,
   );
   return await apiClient.post<void>(`projects/${projectId}/collaborators`, {
     userId,
@@ -67,15 +67,15 @@ export const addCollaborator = async (
 export const updateCollaborator = async (
   projectId: string,
   userId: string,
-  newRole: "ADMIN" | "MEMBER" | "GUEST"
+  newRole: "ADMIN" | "MEMBER" | "GUEST",
 ): Promise<void> => {
   console.info(
-    `Updating collaborator ${userId} role to ${newRole} in project ${projectId}`
+    `Updating collaborator ${userId} role to ${newRole} in project ${projectId}`,
   );
   return await apiClient.put<void>(
     `projects/${projectId}/collaborators/${userId}`,
     {
       newRole,
-    }
+    },
   );
 };

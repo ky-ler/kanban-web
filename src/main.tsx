@@ -22,5 +22,5 @@ createRoot(document.getElementById("root")!).render(
         <InnerApp />
       </QueryClientProvider>
     </AuthProvider>
-  </StrictMode>
+  </StrictMode>,
 );

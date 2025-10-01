@@ -20,7 +20,7 @@ import { queryClient } from "@/lib/query";
 import { projectQueryKey } from "@/lib/query";
 
 export const Route = createFileRoute(
-  "/_protected/projects/$projectId/collaborators"
+  "/_protected/projects/$projectId/collaborators",
 )({
   loader: ({ context: { queryClient }, params: { projectId } }) =>
     queryClient.ensureQueryData(projectQueryOptions(projectId)),
@@ -37,7 +37,7 @@ function CollaboratorsComponent() {
 
   // Find current user's role in the project
   const currentUserRole = project?.collaborators.find(
-    (collaborator) => collaborator.user.id.toString() === currentUserId
+    (collaborator) => collaborator.user.id.toString() === currentUserId,
   )?.role;
 
   const isCurrentUserAdmin = currentUserRole === "ADMIN";
@@ -124,30 +124,30 @@ function CollaboratorsComponent() {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4 max-h-96 overflow-y-auto">
+        <div className="max-h-96 space-y-4 overflow-y-auto">
           {sortedCollaborators.map((collaborator) => (
             <div
               key={collaborator.user.id}
-              className="flex items-center gap-4 p-4 rounded-lg border bg-card hover:bg-accent/50 transition-colors"
+              className="bg-card hover:bg-accent/50 flex items-center gap-4 rounded-lg border p-4 transition-colors"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                <User className="h-5 w-5 text-primary" />
+              <div className="bg-primary/10 flex h-10 w-10 items-center justify-center rounded-full">
+                <User className="text-primary h-5 w-5" />
               </div>
               <div className="flex-1 space-y-1">
                 <div className="flex items-center gap-2">
-                  <h4 className="font-medium text-sm">
+                  <h4 className="text-sm font-medium">
                     {collaborator.user.username}
                   </h4>
                   <span
-                    className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium border ${getRoleBadgeColor(
-                      collaborator.role
+                    className={`inline-flex items-center gap-1 rounded-full border px-2 py-1 text-xs font-medium ${getRoleBadgeColor(
+                      collaborator.role,
                     )}`}
                   >
                     {getRoleIcon(collaborator.role)}
                     {collaborator.role}
                   </span>
                 </div>
-                <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                <div className="text-muted-foreground flex items-center gap-1 text-xs">
                   <Mail className="h-3 w-3" />
                   {collaborator.user.email}
                 </div>
@@ -173,9 +173,9 @@ function CollaboratorsComponent() {
           ))}
 
           {sortedCollaborators.length === 0 && (
-            <div className="text-center py-8">
-              <User className="h-12 w-12 mx-auto text-muted-foreground/50 mb-2" />
-              <p className="text-sm text-muted-foreground">
+            <div className="py-8 text-center">
+              <User className="text-muted-foreground/50 mx-auto mb-2 h-12 w-12" />
+              <p className="text-muted-foreground text-sm">
                 No collaborators found
               </p>
             </div>

@@ -42,10 +42,10 @@ function ProjectComponent() {
 
   return (
     <>
-      <div className="flex flex-col gap-6 flex-1 w-full max-w-7xl mx-auto px-4 py-6">
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 px-4 py-6">
         {/* Project Header */}
         <div className="space-y-6">
-          <div className="flex flex-col lg:flex-row gap-6">
+          <div className="flex flex-col gap-6 lg:flex-row">
             {/* Project Info */}
             <Card className="flex-1 justify-center">
               <CardHeader>
@@ -66,7 +66,7 @@ function ProjectComponent() {
                         from={Route.fullPath}
                         viewTransition={{ types: ["cross-fade"] }}
                       >
-                        <Edit className="h-4 w-4 mr-2" />
+                        <Edit className="mr-2 h-4 w-4" />
                         Edit Project
                       </Link>
                     </Button>
@@ -76,7 +76,7 @@ function ProjectComponent() {
                         params={{ projectId }}
                         from={Route.fullPath}
                       >
-                        <Plus className="h-4 w-4 mr-2" />
+                        <Plus className="mr-2 h-4 w-4" />
                         New Issue
                       </Link>
                     </Button>
@@ -97,7 +97,7 @@ function ProjectComponent() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   {project.collaborators.length} team member
                   {project.collaborators.length !== 1 ? "s" : ""} working on
                   this project
@@ -108,7 +108,7 @@ function ProjectComponent() {
                     params={{ projectId }}
                     from={Route.fullPath}
                   >
-                    <Users className="h-4 w-4 mr-2" />
+                    <Users className="mr-2 h-4 w-4" />
                     View All Collaborators
                   </Link>
                 </Button>
@@ -117,14 +117,14 @@ function ProjectComponent() {
           </div>
 
           {/* Project Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
             <Card>
               <CardContent className="p-4">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-orange-600">
                     {backlogIssues.length}
                   </div>
-                  <div className="text-sm text-muted-foreground">Backlog</div>
+                  <div className="text-muted-foreground text-sm">Backlog</div>
                 </div>
               </CardContent>
             </Card>
@@ -134,7 +134,7 @@ function ProjectComponent() {
                   <div className="text-2xl font-bold text-blue-600">
                     {todoIssues.length}
                   </div>
-                  <div className="text-sm text-muted-foreground">Todo</div>
+                  <div className="text-muted-foreground text-sm">Todo</div>
                 </div>
               </CardContent>
             </Card>
@@ -144,7 +144,7 @@ function ProjectComponent() {
                   <div className="text-2xl font-bold text-yellow-600">
                     {inProgressIssues.length}
                   </div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-muted-foreground text-sm">
                     In Progress
                   </div>
                 </div>
@@ -156,7 +156,7 @@ function ProjectComponent() {
                   <div className="text-2xl font-bold text-green-600">
                     {doneIssues.length}
                   </div>
-                  <div className="text-sm text-muted-foreground">Done</div>
+                  <div className="text-muted-foreground text-sm">Done</div>
                 </div>
               </CardContent>
             </Card>
@@ -166,7 +166,7 @@ function ProjectComponent() {
                   <div className="text-2xl font-bold text-gray-600">
                     {canceledIssues.length}
                   </div>
-                  <div className="text-sm text-muted-foreground">Canceled</div>
+                  <div className="text-muted-foreground text-sm">Canceled</div>
                 </div>
               </CardContent>
             </Card>
@@ -177,18 +177,18 @@ function ProjectComponent() {
 
         {/* Kanban Board */}
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold flex items-center gap-2">
+          <h2 className="flex items-center gap-2 text-xl font-semibold">
             <Calendar className="h-5 w-5" />
             Kanban Board
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 min-h-[400px]">
+          <div className="grid min-h-[400px] grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-5">
             {/* Backlog Column */}
             <Card className="border-orange-200 bg-orange-50/50">
               <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium flex items-center justify-between">
+                <CardTitle className="flex items-center justify-between text-sm font-medium">
                   <span className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-orange-500"></div>
+                    <div className="h-3 w-3 rounded-full bg-orange-500"></div>
                     Backlog
                   </span>
                   <Badge variant="secondary" className="text-xs">
@@ -205,7 +205,7 @@ function ProjectComponent() {
                   />
                 ))}
                 {backlogIssues.length === 0 && (
-                  <div className="text-center text-muted-foreground text-sm py-8">
+                  <div className="text-muted-foreground py-8 text-center text-sm">
                     No backlog items
                   </div>
                 )}
@@ -215,9 +215,9 @@ function ProjectComponent() {
             {/* Todo Column */}
             <Card className="border-blue-200 bg-blue-50/50">
               <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium flex items-center justify-between">
+                <CardTitle className="flex items-center justify-between text-sm font-medium">
                   <span className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                    <div className="h-3 w-3 rounded-full bg-blue-500"></div>
                     Todo
                   </span>
                   <Badge variant="secondary" className="text-xs">
@@ -234,7 +234,7 @@ function ProjectComponent() {
                   />
                 ))}
                 {todoIssues.length === 0 && (
-                  <div className="text-center text-muted-foreground text-sm py-8">
+                  <div className="text-muted-foreground py-8 text-center text-sm">
                     No todo items
                   </div>
                 )}
@@ -244,9 +244,9 @@ function ProjectComponent() {
             {/* In Progress Column */}
             <Card className="border-yellow-200 bg-yellow-50/50">
               <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium flex items-center justify-between">
+                <CardTitle className="flex items-center justify-between text-sm font-medium">
                   <span className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
                     In Progress
                   </span>
                   <Badge variant="secondary" className="text-xs">
@@ -263,7 +263,7 @@ function ProjectComponent() {
                   />
                 ))}
                 {inProgressIssues.length === 0 && (
-                  <div className="text-center text-muted-foreground text-sm py-8">
+                  <div className="text-muted-foreground py-8 text-center text-sm">
                     No items in progress
                   </div>
                 )}
@@ -273,9 +273,9 @@ function ProjectComponent() {
             {/* Done Column */}
             <Card className="border-green-200 bg-green-50/50">
               <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium flex items-center justify-between">
+                <CardTitle className="flex items-center justify-between text-sm font-medium">
                   <span className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                    <div className="h-3 w-3 rounded-full bg-green-500"></div>
                     Done
                   </span>
                   <Badge variant="secondary" className="text-xs">
@@ -292,7 +292,7 @@ function ProjectComponent() {
                   />
                 ))}
                 {doneIssues.length === 0 && (
-                  <div className="text-center text-muted-foreground text-sm py-8">
+                  <div className="text-muted-foreground py-8 text-center text-sm">
                     No done items
                   </div>
                 )}
@@ -302,9 +302,9 @@ function ProjectComponent() {
             {/* Canceled Column */}
             <Card className="border-gray-200 bg-gray-50/50">
               <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium flex items-center justify-between">
+                <CardTitle className="flex items-center justify-between text-sm font-medium">
                   <span className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-gray-500"></div>
+                    <div className="h-3 w-3 rounded-full bg-gray-500"></div>
                     Canceled
                   </span>
                   <Badge variant="secondary" className="text-xs">
@@ -321,7 +321,7 @@ function ProjectComponent() {
                   />
                 ))}
                 {canceledIssues.length === 0 && (
-                  <div className="text-center text-muted-foreground text-sm py-8">
+                  <div className="text-muted-foreground py-8 text-center text-sm">
                     No canceled items
                   </div>
                 )}

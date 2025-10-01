@@ -14,5 +14,5 @@ export const allIssuesQueryKey = ["issues"];
 
 export const issueQueryKey = (
   projectId: string | number,
-  issueId: string | number
+  issueId: string | number,
 ) => [allIssuesQueryKey[0], { projectId, issueId }];

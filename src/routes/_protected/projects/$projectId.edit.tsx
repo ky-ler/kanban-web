@@ -75,7 +75,7 @@ function EditProjectComponent() {
       e.stopPropagation();
       form.handleSubmit();
     },
-    [form]
+    [form],
   );
 
   const returnToProject = () => {
@@ -99,7 +99,7 @@ function EditProjectComponent() {
         </DialogHeader>
         <form.AppForm>
           <form onSubmit={handleSubmit}>
-            <div className="gap-4 flex flex-col">
+            <div className="flex flex-col gap-4">
               <div className="grid flex-1 gap-2">
                 <form.AppField
                   name="projectName"

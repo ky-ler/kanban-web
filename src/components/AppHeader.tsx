@@ -17,7 +17,7 @@ export function AppHeader() {
 
   return (
     <>
-      <header className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b">
+      <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
         <div className="container flex h-14 items-center justify-between px-4">
           <div className="flex items-center gap-6">
             {/* Logo/Brand */}
@@ -35,9 +35,9 @@ export function AppHeader() {
                     <NavigationMenuLink asChild>
                       <Link
                         to="/"
-                        className="flex flex-row items-center gap-2 px-4 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground"
+                        className="hover:bg-accent hover:text-accent-foreground flex flex-row items-center gap-2 rounded-md px-4 py-2 text-sm font-medium"
                       >
-                        <Home className="h-4 w-4 inline" />
+                        <Home className="inline h-4 w-4" />
                         Home
                       </Link>
                     </NavigationMenuLink>
@@ -54,7 +54,7 @@ export function AppHeader() {
                         <li>
                           <NavigationMenuLink asChild>
                             <Link to="/projects">
-                              <div className="text-sm font-medium leading-none">
+                              <div className="text-sm leading-none font-medium">
                                 All Projects
                               </div>
                               <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
@@ -66,7 +66,7 @@ export function AppHeader() {
                         <li>
                           <NavigationMenuLink asChild>
                             <Link to="/projects/create">
-                              <div className="text-sm font-medium leading-none">
+                              <div className="text-sm leading-none font-medium">
                                 Create Project
                               </div>
                               <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
@@ -78,7 +78,7 @@ export function AppHeader() {
                         <li>
                           <NavigationMenuLink asChild>
                             <Link to="/projects/create">
-                              <div className="text-sm font-medium leading-none">
+                              <div className="text-sm leading-none font-medium">
                                 My Tasks
                               </div>
                               <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
@@ -96,7 +96,7 @@ export function AppHeader() {
                     <NavigationMenuLink asChild>
                       <Link
                         to="/settings"
-                        className="flex flex-row items-center gap-2 px-4 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground"
+                        className="hover:bg-accent hover:text-accent-foreground flex flex-row items-center gap-2 rounded-md px-4 py-2 text-sm font-medium"
                       >
                         <Settings className="h-4 w-4" />
                         Settings
@@ -112,7 +112,7 @@ export function AppHeader() {
           <div className="flex items-center gap-4">
             {auth.isAuthenticated && (
               <>
-                <div className="text-sm text-muted-foreground">
+                <div className="text-muted-foreground text-sm">
                   Welcome,{" "}
                   {auth.user?.profile?.name ||
                     auth.user?.profile?.preferred_username}

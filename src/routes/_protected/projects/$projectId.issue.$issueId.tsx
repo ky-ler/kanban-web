@@ -30,7 +30,7 @@ import { PRIORITIES, STATUSES, type IssueRequestData } from "@/types/Issue";
 import { projectQueryKey } from "@/lib/query";
 
 export const Route = createFileRoute(
-  "/_protected/projects/$projectId/issue/$issueId"
+  "/_protected/projects/$projectId/issue/$issueId",
 )({
   loader: async ({
     context: { queryClient },
@@ -49,7 +49,7 @@ function IssueComponent() {
   const { projectId, issueId } = Route.useParams();
   const { data: project } = useSuspenseQuery(projectQueryOptions(projectId));
   const { data: issue } = useSuspenseQuery(
-    issueQueryOptions(projectId, issueId)
+    issueQueryOptions(projectId, issueId),
   );
 
   const [isEditing, setIsEditing] = useState(false);
@@ -102,7 +102,7 @@ function IssueComponent() {
       e.stopPropagation();
       form.handleSubmit();
     },
-    [form]
+    [form],
   );
 
   const returnToProject = () => {
@@ -145,7 +145,7 @@ function IssueComponent() {
         {isEditing ? (
           <form.AppForm>
             <form onSubmit={handleSubmit}>
-              <div className="gap-4 flex flex-col">
+              <div className="flex flex-col gap-4">
                 <form.AppField
                   name="issueTitle"
                   validators={{
@@ -290,7 +290,8 @@ function IssueComponent() {
                       let error;
                       if (value) {
                         const collaborator = project?.collaborators.find(
-                          (collaborator) => collaborator.user.username === value
+                          (collaborator) =>
+                            collaborator.user.username === value,
                         );
                         if (!collaborator) {
                           error = "Invalid assignee";

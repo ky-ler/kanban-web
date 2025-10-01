@@ -26,22 +26,22 @@ function IssueCard({
     >
       <Card
         key={issue.id}
-        className="transition-shadow hover:shadow-lg border border-muted-foreground/10 p-2"
+        className="border-muted-foreground/10 border p-2 transition-shadow hover:shadow-lg"
       >
-        <div className="flex items-center justify-between gap-2 mb-1">
-          <CardTitle className="line-clamp-1 text-base font-medium m-0 overflow-ellipsis">
+        <div className="mb-1 flex items-center justify-between gap-2">
+          <CardTitle className="m-0 line-clamp-1 text-base font-medium overflow-ellipsis">
             {issue.title}
           </CardTitle>
         </div>
-        <CardFooter className="pt-0 px-0 flex items-center justify-between overflow-ellipsis">
-          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
+        <CardFooter className="flex items-center justify-between px-0 pt-0 overflow-ellipsis">
+          <div className="text-muted-foreground mb-1 flex items-center gap-2 text-xs">
             {issue.assignedToUsername ? (
               <span
                 className={cn(
-                  "inline-flex items-center gap-1 bg-muted px-1.5 py-0.5 rounded-full"
+                  "bg-muted inline-flex items-center gap-1 rounded-full px-1.5 py-0.5",
                 )}
               >
-                <User className="w-4 h-4 mr-1 text-muted-foreground" />
+                <User className="text-muted-foreground mr-1 h-4 w-4" />
                 {issue.assignedToUsername}
               </span>
             ) : (
@@ -51,7 +51,7 @@ function IssueCard({
           <div className="flex justify-end">
             <span
               className={cn(
-                "inline-block px-1.5 py-0.5 rounded text-[10px] font-medium",
+                "inline-block rounded px-1.5 py-0.5 text-[10px] font-medium",
                 PRIORITIES.indexOf(issue.priority.name) === -1 &&
                   "issue-priority-other",
                 PRIORITIES.indexOf(issue.priority.name) === 0 &&
@@ -61,7 +61,7 @@ function IssueCard({
                 PRIORITIES.indexOf(issue.priority.name) === 2 &&
                   "issue-priority-high",
                 PRIORITIES.indexOf(issue.priority.name) === 3 &&
-                  "issue-priority-urgent"
+                  "issue-priority-urgent",
               )}
             >
               {issue.priority.name}

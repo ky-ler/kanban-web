@@ -48,7 +48,7 @@ const client = ky.create({
         // Log successful requests in development
         if (import.meta.env.DEV) {
           console.log(
-            `✅ ${request.method} ${request.url} - ${response.status}`
+            `✅ ${request.method} ${request.url} - ${response.status}`,
           );
         }
 
@@ -63,7 +63,7 @@ const client = ky.create({
 
         // Enhanced error logging
         console.error(
-          `❌ ${request.method} ${request.url} - ${response?.status || "Network Error"}`
+          `❌ ${request.method} ${request.url} - ${response?.status || "Network Error"}`,
         );
 
         // parse request
@@ -90,7 +90,7 @@ const client = ky.create({
             const enhancedError = new HTTPError(
               response,
               request,
-              error.options
+              error.options,
             );
             (enhancedError as ApiError).response = errorBody;
 
@@ -119,7 +119,7 @@ async function get<T>(url: string, options?: Options): Promise<T> {
 async function post<T>(
   url: string,
   data?: unknown,
-  options?: Options
+  options?: Options,
 ): Promise<T> {
   return request<T>(url, {
     ...options,
@@ -131,7 +131,7 @@ async function post<T>(
 async function put<T>(
   url: string,
   data?: unknown,
-  options?: Options
+  options?: Options,
 ): Promise<T> {
   return request<T>(url, {
     ...options,
@@ -143,7 +143,7 @@ async function put<T>(
 async function patch<T>(
   url: string,
   data?: unknown,
-  options?: Options
+  options?: Options,
 ): Promise<T> {
   return request<T>(url, {
     ...options,
