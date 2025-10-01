@@ -1,35 +1,11 @@
 import type { User } from "./User";
 
-export const STATUSES = [
-  "Backlog",
-  "Todo",
-  "In Progress",
-  "Done",
-  "Canceled",
-] as const;
-
-export type Status = (typeof STATUSES)[number];
-export function getStatusId(status: Status): number {
-  const idx = STATUSES.indexOf(status);
-  if (idx === -1) {
-    throw new Error(`Unknown status name: ${status}`);
-  }
-  return idx + 1;
-}
+export const STATUSES = ["Backlog", "Todo", "In Progress", "Done", "Canceled"];
+export const PRIORITIES = ["Low", "Normal", "High", "Urgent"];
 
 export interface PriorityAndStatusType {
   id: number;
   name: string;
-}
-
-export const PRIORITIES = ["Low", "Medium", "High", "Urgent"] as const;
-export type Priority = (typeof PRIORITIES)[number];
-export function getPriorityId(priority: Priority): number {
-  const idx = PRIORITIES.indexOf(priority);
-  if (idx === -1) {
-    throw new Error(`Unknown priority name: ${priority}`);
-  }
-  return idx + 1;
 }
 
 export interface Issue {
@@ -39,8 +15,8 @@ export interface Issue {
   project: number;
   title: string;
   description: string | undefined;
-  status: string;
-  priority: string;
+  status: PriorityAndStatusType;
+  priority: PriorityAndStatusType;
   dateCreated: string;
   dateModified: string | null;
 }
@@ -50,14 +26,14 @@ export interface IssueSummary {
   title: string;
   status: PriorityAndStatusType;
   priority: PriorityAndStatusType;
-  assignedToUserId: number | null;
+  assignedToUsername: string | null;
 }
 
-export interface IssueForm {
+export interface IssueRequestData {
   projectId: number;
   title: string;
   description: string | undefined;
-  statusId: number;
-  priorityId: number;
+  statusName: string;
+  priorityName: string;
   assignedToUsername: string | null;
 }
